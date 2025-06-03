@@ -1,6 +1,5 @@
 import styles from "./StyledDiv.module.scss";
-import classNames from "classnames";
-
+import clxs from "classNames";
 interface StyledDivProps {
   children: React.ReactNode;
   className?: string;
@@ -11,7 +10,7 @@ const StyledDiv = ({ children, className, onClick }: StyledDivProps) => {
   return (
     <div
       onClick={onClick}
-      className={classNames(styles.bodyContent, className)}
+      className={clxs(styles.bodyContent, className)}
     >
       {children}
     </div>

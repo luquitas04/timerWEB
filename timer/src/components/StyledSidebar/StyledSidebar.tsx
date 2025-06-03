@@ -1,15 +1,20 @@
+// #region imports
 import { useNavigate } from "react-router-dom";
 import StyledDiv from "../StyledDiv/StyledDiv";
-import styles from "./StyledSidebar.module.scss";
 import urlProfileIcon from "./initialIcons/profileExampleIcon.svg";
 import urlLogotypeIcon from "./initialIcons/brandExampleIcon.svg";
 
+import styles from "./StyledSidebar.module.scss";
+import useToggle from "../hooks/useToggle/useToggle";
+// #endregion
+// #region types
 export interface StyledSidebarProps {
   className?: string;
   logotype?: string;
   profileIcon?: string;
   children?: React.ReactNode;
 }
+// #endregion
 
 const StyledSidebar = ({
   logotype = urlLogotypeIcon,
@@ -17,27 +22,36 @@ const StyledSidebar = ({
   className = "",
   children,
 }: StyledSidebarProps) => {
+  // #region states
   const navigate = useNavigate();
+  const { isActive, toggle } = useToggle();
+  // #endregio
 
+  // #region render
   return (
-    <>
-      <StyledDiv className={`${className} ${styles.sidebar}`}>
+    <div onMouseEnter={toggle} onMouseLeave={toggle} className={styles.sidebar__wrapper}>
+      <StyledDiv
+        className={`${className} ${
+          isActive ? styles.sidebar : styles.sidebar__toggle
+        }`}
+      >
         <StyledDiv
           onClick={() => navigate("/")}
-          className={styles.sidebarHeader}
+          className={styles.icon}
         >
-          <img src={logotype} alt="brand icon" />
+          <img src={logotype} alt="brand icon" className={styles.icon}/>
         </StyledDiv>
         <StyledDiv>{children}</StyledDiv>
         <StyledDiv
-          className={styles.sidebarFooter}
+          className={styles.icon}
           onClick={() => navigate("/profile")}
         >
-          <img src={profileIcon} alt="profile icon" />
+          <img src={profileIcon} alt="profile icon" className={styles.icon}/>
         </StyledDiv>
       </StyledDiv>
-    </>
+    </div>
   );
 };
 
 export default StyledSidebar;
+// #endregion
