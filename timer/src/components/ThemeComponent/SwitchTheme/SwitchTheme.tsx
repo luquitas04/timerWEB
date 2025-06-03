@@ -5,12 +5,12 @@ const SwitchTheme = () => {
   const { toggleTheme, isDarkMode } = useTheme();
 
   return (
-    <button 
+    <button
       onClick={toggleTheme}
       className={styles.toggleButton}
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {isDarkMode ? '☀️' : '🌙'}
+      {isDarkMode ? "☀️" : "🌙"}
     </button>
   );
 };

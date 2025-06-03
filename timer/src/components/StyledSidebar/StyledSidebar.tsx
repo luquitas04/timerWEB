@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import StyledDiv from "../StyledDiv/StyledDiv";
 import urlProfileIcon from "./initialIcons/profileExampleIcon.svg";
 import urlLogotypeIcon from "./initialIcons/brandExampleIcon.svg";
+import useToggle from "../hooks/useToggle/useToggle";
 
 import styles from "./StyledSidebar.module.scss";
-import useToggle from "../hooks/useToggle/useToggle";
 // #endregion
 // #region types
 export interface StyledSidebarProps {
@@ -29,24 +29,32 @@ const StyledSidebar = ({
 
   // #region render
   return (
-    <div onMouseEnter={toggle} onMouseLeave={toggle} className={styles.sidebar__wrapper}>
-      <StyledDiv
-        className={`${className} ${
-          isActive ? styles.sidebar : styles.sidebar__toggle
-        }`}
-      >
-        <StyledDiv
-          onClick={() => navigate("/")}
-          className={styles.icon}
-        >
-          <img src={logotype} alt="brand icon" className={styles.icon}/>
+    <div
+      onMouseEnter={toggle}
+      onMouseLeave={toggle}
+      className={`${styles.sidebarWrapper} ${isActive ? styles.expanded : ""}`}
+    >
+      <StyledDiv className={`${className} ${styles.sidebar}`}>
+        <StyledDiv className={styles.topSection}>
+          <StyledDiv
+            onClick={() => navigate("/")}
+            className={styles.iconContainer}
+          >
+            <img src={logotype} alt="brand icon" className={styles.icon} />
+            <span className={styles.label}>Inicio</span>
+          </StyledDiv>
         </StyledDiv>
-        <StyledDiv>{children}</StyledDiv>
-        <StyledDiv
-          className={styles.icon}
-          onClick={() => navigate("/profile")}
-        >
-          <img src={profileIcon} alt="profile icon" className={styles.icon}/>
+
+        <StyledDiv className={styles.middleContent}>{children}</StyledDiv>
+
+        <StyledDiv className={styles.bottomSection}>
+          <StyledDiv
+            onClick={() => navigate("/profile")}
+            className={styles.iconContainer}
+          >
+            <img src={profileIcon} alt="profile icon" className={styles.icon} />
+            <span className={styles.label}>Perfil</span>
+          </StyledDiv>
         </StyledDiv>
       </StyledDiv>
     </div>
